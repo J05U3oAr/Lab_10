@@ -20,6 +20,8 @@ import com.example.lab10.repo.LocationRepositoryRoom
 import com.example.lab10.ui.loadings.ErrorCard
 import com.example.lab10.ui.viewmodel.LocationsViewModel
 import androidx.compose.ui.platform.LocalContext
+import com.example.lab10.network.RetrofitInstance
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,13 +33,15 @@ fun screenLocations(
             factory = viewModelFactory {
                 initializer {
                     val db = DbProvider.get(ctx)
-                    val repo = LocationRepositoryRoom(db.locationDao())
+                    val api = RetrofitInstance.api  // ✅ AGREGADO
+                    val repo = LocationRepositoryRoom(db.locationDao(), api)  // ✅ Ahora recibe 2 parámetros
                     LocationsViewModel(repo)
                 }
             }
         )
     }
 ) {
+    // ... resto del código sin cambios
     val uiState = vm.state.collectAsStateWithLifecycle().value
 
     Scaffold(
@@ -45,7 +49,7 @@ fun screenLocations(
             TopAppBar(
                 title = { Text("Locations") },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
@@ -55,7 +59,7 @@ fun screenLocations(
             uiState.isLoading -> Box(
                 modifier = Modifier.padding(padding).fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) { CircularProgressIndicator(color = Color(0xFF27F5F2)) }
+            ) { CircularProgressIndicator(color = Color(0xFF9C27B0)) }
 
             uiState.hasError -> ErrorCard(
                 message = "No se pudo obtener la lista de locaciones",

@@ -30,7 +30,7 @@ fun screenProfile(
 
     pantallaProfile(
         nombre = name ?: "Invitado",
-        carne = "241403",
+        carne = "241112",
         on_cerrar_sesion = {
             vm.logout()
             onCerrarSesion()
@@ -51,7 +51,7 @@ fun pantallaProfile(
             TopAppBar(
                 title = { Text("Profile") },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
@@ -66,7 +66,7 @@ fun pantallaProfile(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             AsyncImage(
-                model = "https://i.pinimg.com/736x/fc/34/0e/fc340e09bdff93e0cea4c3c6cbe2516e.jpg",
+                model = "https://i.pinimg.com/736x/d7/79/ba/d779bad841fef6a60985a0b17ae3ba8f.jpg",
                 contentDescription = null,
                 modifier = Modifier
                     .size(120.dp)
@@ -91,7 +91,7 @@ fun pantallaProfile(
             Button(
                 onClick = on_cerrar_sesion,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 modifier = Modifier.fillMaxWidth()

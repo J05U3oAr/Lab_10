@@ -27,12 +27,11 @@ class LocationDetailViewModel(
         _state.value = UiState(isLoading = true)
         viewModelScope.launch {
             try {
-
                 delay(2000)
 
                 val roll = Random.nextInt(1, 11)
                 if (roll % 2 == 0) {
-                    val loc = repo.getLocationById(locationId)
+                    val loc = repo.getLocationById(locationId)  // ✅ Lee de Room
                     _state.value = UiState(isLoading = false, data = loc, hasError = false)
                 } else {
                     _state.value = UiState(isLoading = false, data = null, hasError = true)

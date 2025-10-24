@@ -24,6 +24,8 @@ import com.example.lab10.entity.DbProvider
 import com.example.lab10.repo.CharacterRepositoryRoom
 import com.example.lab10.ui.loadings.ErrorCard
 import com.example.lab10.ui.viewmodel.CharacterDetailViewModel
+import com.example.lab10.network.RetrofitInstance
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +37,8 @@ fun screenCharacterDetail(
             factory = viewModelFactory {
                 initializer {
                     val db = DbProvider.get(ctx)
-                    val repo = CharacterRepositoryRoom(db.characterDao())
+                    val api = RetrofitInstance.api  // ✅ AGREGADO
+                    val repo = CharacterRepositoryRoom(db.characterDao(), api)  // ✅ Ahora recibe 2 parámetros
                     CharacterDetailViewModel(
                         repo = repo,
                         savedStateHandle = createSavedStateHandle()
@@ -45,6 +48,7 @@ fun screenCharacterDetail(
         )
     }
 ) {
+    // ... resto del código sin cambios
     val ui = vm.state.collectAsStateWithLifecycle().value
 
     Scaffold(
@@ -57,7 +61,7 @@ fun screenCharacterDetail(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
@@ -65,7 +69,7 @@ fun screenCharacterDetail(
     ) { padding ->
         when {
             ui.isLoading -> Box(Modifier.padding(padding).fillMaxSize(), Alignment.Center) {
-                CircularProgressIndicator(color = Color(0xFF27F5F2))
+                CircularProgressIndicator(color = Color(0xFF9C27B0))
             }
             ui.hasError || ui.data == null -> ErrorCard(
                 message = "No se pudo obtener la informacion de los personajes",

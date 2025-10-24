@@ -34,6 +34,8 @@ import com.example.lab10.repo.CharacterRepositoryRoom
 import com.example.lab10.ui.viewmodel.CharactersViewModel
 import com.example.lab10.data.Character
 import com.example.lab10.ui.loadings.ErrorCard
+import com.example.lab10.network.RetrofitInstance
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,13 +48,15 @@ fun screenCharacters(
             factory = viewModelFactory {
                 initializer {
                     val db = DbProvider.get(ctx)
-                    val repo = CharacterRepositoryRoom(db.characterDao())
+                    val api = RetrofitInstance.api  // ✅ AGREGADO
+                    val repo = CharacterRepositoryRoom(db.characterDao(), api)  // ✅ Ahora recibe 2 parámetros
                     CharactersViewModel(repo)
                 }
             }
         )
     }
 ) {
+    // ... resto del código sin cambios
     val uiState = vm.state.collectAsStateWithLifecycle().value
 
     Scaffold(
@@ -60,7 +64,7 @@ fun screenCharacters(
             TopAppBar(
                 title = { Text("Characters") },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
@@ -70,7 +74,7 @@ fun screenCharacters(
             uiState.isLoading -> Box(
                 Modifier.padding(padding).fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) { CircularProgressIndicator(color = Color(0xFF27F5F2)) }
+            ) { CircularProgressIndicator(color = Color(0xFF9C27B0)) }
 
             uiState.hasError -> ErrorCard(
                 message = "No se pudo obtener la lista de personajes",

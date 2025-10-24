@@ -27,12 +27,11 @@ class CharacterDetailViewModel(
         _state.value = UiState(isLoading = true)
         viewModelScope.launch {
             try {
-
                 delay(2000)
 
                 val roll = Random.nextInt(1, 11)
                 if (roll % 2 == 0) {
-                    val character = repo.getCharacterById(characterId)
+                    val character = repo.getCharacterById(characterId)  // ✅ Lee de Room
                     _state.value = UiState(isLoading = false, data = character, hasError = false)
                 } else {
                     _state.value = UiState(isLoading = false, data = null, hasError = true)

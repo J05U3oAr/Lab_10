@@ -81,7 +81,7 @@ fun screenLogin(
         }
 
         Text(
-            text = "Luis Lee — 241403",
+            text = "Arodi Josué Chávez Ramírez — 241112",
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 8.dp),

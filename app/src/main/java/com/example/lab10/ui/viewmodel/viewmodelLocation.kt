@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.lab10.data.Location
 import com.example.lab10.entity.DbProvider
+import com.example.lab10.network.RetrofitInstance
 import com.example.lab10.repo.LocationRepository
 import com.example.lab10.repo.LocationRepositoryRoom
 import com.example.lab10.ui.loadings.UiState
@@ -29,10 +30,9 @@ class LocationsViewModel(
         _state.value = UiState(isLoading = true)
         viewModelScope.launch {
             try {
+                delay(2000)  // Simulación de delay (puedes quitarlo)
 
-                delay(4000)
-
-                val list = repo.getLocations()        // Lee desde Room
+                val list = repo.getLocations()  // ✅ Ahora llama al API si no hay data local
                 _state.value = UiState(isLoading = false, data = list, hasError = false)
             } catch (_: Exception) {
                 _state.value = UiState(isLoading = false, data = null, hasError = true)
@@ -46,7 +46,8 @@ class LocationsViewModel(
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     val db = DbProvider.get(context)
-                    val repo = LocationRepositoryRoom(db.locationDao())
+                    val api = RetrofitInstance.api  // ✅ NUEVO
+                    val repo = LocationRepositoryRoom(db.locationDao(), api)  // ✅ MODIFICADO
                     return LocationsViewModel(repo) as T
                 }
             }

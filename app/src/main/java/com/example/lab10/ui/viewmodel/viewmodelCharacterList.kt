@@ -24,17 +24,16 @@ class CharactersViewModel(
         _state.value = UiState(isLoading = true)
         viewModelScope.launch {
             try {
-
-                delay(4000)
+                delay(2000)  // Simulación de delay (puedes quitarlo si quieres)
 
                 val roll = Random.nextInt(1, 11)
                 if (roll % 2 == 0) {
-                    val list = repo.getCharacters()
+                    val list = repo.getCharacters()  // ✅ Ahora llama al API si no hay data local
                     _state.value = UiState(isLoading = false, data = list, hasError = false)
                 } else {
                     _state.value = UiState(isLoading = false, data = null, hasError = true)
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 _state.value = UiState(isLoading = false, data = null, hasError = true)
             }
         }

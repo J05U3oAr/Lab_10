@@ -19,6 +19,8 @@ import com.example.lab10.entity.DbProvider
 import com.example.lab10.repo.LocationRepositoryRoom
 import com.example.lab10.ui.loadings.ErrorCard
 import com.example.lab10.ui.viewmodel.LocationDetailViewModel
+// En screenCharacter.kt y screenCharacterDetail.kt
+import com.example.lab10.network.RetrofitInstance
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +32,8 @@ fun screenLocationsDetails(
             factory = viewModelFactory {
                 initializer {
                     val db = DbProvider.get(ctx)
-                    val repo = LocationRepositoryRoom(db.locationDao())
+                    val api = RetrofitInstance.api  // ✅ AGREGADO
+                    val repo = LocationRepositoryRoom(db.locationDao(), api)  // ✅ Ahora recibe 2 parámetros
                     LocationDetailViewModel(
                         repo = repo,
                         savedStateHandle = createSavedStateHandle()
@@ -40,6 +43,7 @@ fun screenLocationsDetails(
         )
     }
 ) {
+    // ... resto del código sin cambios
     val ui = vm.state.collectAsStateWithLifecycle().value
 
     Scaffold(
