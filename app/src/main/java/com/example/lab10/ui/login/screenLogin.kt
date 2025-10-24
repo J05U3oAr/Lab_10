@@ -66,7 +66,7 @@ fun screenLogin(
                 modifier = Modifier
                     .fillMaxWidth(0.75f)
                     .height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF27F5F2))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0))
             ) {
                 if (isLoading) {
                     CircularProgressIndicator(

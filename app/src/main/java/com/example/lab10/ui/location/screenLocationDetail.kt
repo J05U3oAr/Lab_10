@@ -56,7 +56,7 @@ fun screenLocationsDetails(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF27F5F2),
+                    containerColor = Color(0xFF9C27B0),
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
@@ -64,7 +64,7 @@ fun screenLocationsDetails(
     ) { padding ->
         when {
             ui.isLoading -> Box(Modifier.padding(padding).fillMaxSize(), Alignment.Center) {
-                CircularProgressIndicator(color = Color(0xFF27F5F2))
+                CircularProgressIndicator(color = Color(0xFF9C27B0))
             }
             ui.hasError || ui.data == null -> ErrorCard(
                 message = "No se pudo obtener la informacion de la locacion",
