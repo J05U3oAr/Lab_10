@@ -47,7 +47,7 @@ fun screenLogin(
         ) {
 
             AsyncImage(
-                model = "https://vectorseek.com/wp-content/uploads/2023/07/Rick-and-Morty-Logo-Vector.jpg",
+                model = "https://i.pinimg.com/736x/d7/79/ba/d779bad841fef6a60985a0b17ae3ba8f.jpg",
                 contentDescription = null,
             )
 
